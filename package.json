@@ -1,0 +1,23 @@
+{
+  "name": "pi-notion-tools",
+  "version": "0.1.0",
+  "description": "Pi extension for managing Notion pages and databases through the Notion API",
+  "keywords": [
+    "pi-package"
+  ],
+  "files": [
+    "notion.ts",
+    "src",
+    "README.md"
+  ],
+  "pi": {
+    "extensions": [
+      "./notion.ts"
+    ]
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-ai": "*",
+    "@earendil-works/pi-coding-agent": "*",
+    "typebox": "*"
+  }
+}

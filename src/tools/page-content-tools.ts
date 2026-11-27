@@ -22,7 +22,7 @@ export class NotionPageContentTools {
 				children_json: Type.Optional(Type.String({ description: "JSON array of blocks to append." })),
 				block_json: Type.Optional(Type.String({ description: "JSON block fields to update." })),
 				pageSize: Type.Optional(Type.Integer({ minimum: 1, maximum: 100 })),
-				startCursor: Type.Optional(Type.String()),
+				startCursor: Type.Optional(Type.String({ description: "Opaque cursor returned as next_cursor; omit for the first page." })),
 			}),
 			async execute(_id, params, signal, _onUpdate, ctx) {
 				if (!params.blockId) throw new Error("blockId is required for this action.");
@@ -30,7 +30,7 @@ export class NotionPageContentTools {
 				if (params.action === "list") {
 					const childrenPath = client.buildPath(`${path}/children`, {
 						page_size: params.pageSize ?? 100,
-						start_cursor: params.startCursor,
+						start_cursor: params.startCursor || undefined,
 					});
 					const result = await client.request("GET", childrenPath, undefined, signal);
 					return { content: [{ type: "text" as const, text: JSON.stringify(result, null, 2) ?? "null" }], details: {} };
